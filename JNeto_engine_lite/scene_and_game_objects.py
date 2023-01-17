@@ -1,6 +1,7 @@
+import typing
 import pygame
-from pygame import Vector2, Surface, Color, Rect
-from JNeto_engine_lite.components import Transfrom
+from pygame import Surface, Color
+from JNeto_engine_lite.components import Transform, Component, Sprite
 
 
 # =====================================================================================================================
@@ -9,12 +10,13 @@ from JNeto_engine_lite.components import Transfrom
 
 class GameObject:
 
+    ComponentSubclassType = typing.TypeVar('ComponentSubclassType', bound=Component)
+
     def __init__(self, name):
         self.name = name
         self.scene = None
-        self.components = []
-        self.transform: Transfrom = Transfrom()
-        self.add_component(self.transform)
+        self.components: list[Component] = []
+        self.transform: Transform = self.add_component(Transform())
 
     def start(self):
         pass
@@ -24,27 +26,28 @@ class GameObject:
 
     def render(self, game_surface: Surface):
         if self.has_component("Sprite"):
-            sprite_component = self.get_component("Sprite")
-            sprite_component.image_rect = sprite_component.image.get_rect(center=self.transform.position)
+            sprite_component: Sprite = self.get_component("Sprite")
+            sprite_component.image_rect = sprite_component.image.get_rect(center=self.transform.get_position_copy())
             game_surface.blit(sprite_component.image, sprite_component.image_rect.topleft)
 
     def render_gizmos(self, game_surface: Surface):
         # transform
-        pygame.draw.circle(game_surface, Color("black"), self.transform.position, 5)
+        pygame.draw.circle(game_surface, Color("black"), self.transform.get_position_copy(), 5)
         # sprite
         if self.has_component("Sprite"):
             pygame.draw.rect(game_surface, Color("red"), self.get_component("sprite").image_rect, 2)
 
-    def add_component(self, component):
+    def add_component(self, component) -> ComponentSubclassType:
         self.components.append(component)
+        return component
 
-    def has_component(self, name):
+    def has_component(self, name) -> bool:
         for component in self.components:
             if component.name == name.capitalize():
                 return True
         return False
 
-    def get_component(self, name: str):
+    def get_component(self, name: str) -> ComponentSubclassType:
         for component in self.components:
             if component.name == name.capitalize():
                 return component
