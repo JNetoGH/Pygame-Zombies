@@ -1,6 +1,5 @@
 import typing
-import pygame
-from pygame import Surface, Color
+from pygame import Surface
 from JNeto_engine_lite.components import Transform, Component, Sprite
 
 
@@ -31,11 +30,7 @@ class GameObject:
             game_surface.blit(sprite_component.image, sprite_component.image_rect.topleft)
 
     def render_gizmos(self, game_surface: Surface):
-        # transform
-        pygame.draw.circle(game_surface, Color("black"), self.transform.get_position_copy(), 5)
-        # sprite
-        if self.has_component("Sprite"):
-            pygame.draw.rect(game_surface, Color("red"), self.get_component("sprite").image_rect, 2)
+        pass
 
     def add_component(self, component) -> ComponentSubclassType:
         self.components.append(component)
@@ -67,7 +62,7 @@ class Scene:
     def update(self):
         for game_object in self.__game_objects:
             for component in game_object.components:
-                component.update()
+                component.update(game_object)
             game_object.update()
 
     def render(self):
@@ -77,11 +72,15 @@ class Scene:
     def render_gizmos(self, game_surface: Surface):
         for game_object in self.__game_objects:
             game_object.render_gizmos(game_surface)
+        for game_object in self.__game_objects:
+            for component in game_object.components:
+                component.render_gizmos(game_surface)
 
-    def add_game_object(self, game_object: GameObject):
-        self.__game_objects.append(game_object)
-        game_object.scene = self
-        game_object.start()
+    def add_game_objects(self, *game_objects: GameObject):
+        for gm_obj in game_objects:
+            self.__game_objects.append(gm_obj)
+            gm_obj.scene = self
+            gm_obj.start()
 
     def remove_game_object(self, game_object: GameObject):
         if game_object in self.__game_objects:
