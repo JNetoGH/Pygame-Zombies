@@ -46,6 +46,9 @@ class GameLoop:
                 GameLoop.__CurrentScene.render_gizmos(self.GameSurface)
             pygame.display.update()
 
+            # DEBUGGIN
+            print(f"Total Game Objects in scene: {len(self.__CurrentScene.game_objects)}")
+            print()
     @staticmethod
     def set_current_scene(scene: Scene):
         GameLoop.__CurrentScene = scene

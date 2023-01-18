@@ -7,20 +7,22 @@ from JNeto_engine_lite.game_loop import GameLoop
 from JNeto_engine_lite.scene_and_game_objects import GameObject
 from game_object_barrier import Barrier
 from game_object_bullet import Bullet
+from game_object_zombie_instantiator import ZombieInstantiator
 
 
 class Player(GameObject):
 
-    def __init__(self):
+    def __init__(self, initial_position: Vector2):
         super().__init__("player")
 
         # Sprite Component
         self.sprite: Sprite = self.add_component(Sprite("res/HumanShootgun.png"))
-        self.sprite.scale_image(0.5)
+        self.sprite.scale_image(0.4)
 
         # Collider Component
         self.collider: Collider = self.add_component(Collider(0, 0, 35, 35))
         self.collider.collidable_classes.append(Barrier)
+        self.collider.collidable_classes.append(ZombieInstantiator)
 
         # Key Tracker Component (for shooting)
         self.space_tracker = self.add_component(KeyTracker(K_SPACE))
@@ -30,10 +32,9 @@ class Player(GameObject):
         self.angle = 20
         self.angular_velocity = 150
         self.direction = Vector2()
-        
-    def start(self):
+
         # initial position
-        self.transform.move_position(Vector2(200, 200))
+        self.transform.move_position(initial_position)
 
     def update(self):
 

@@ -13,6 +13,7 @@ MY_FONT = font.Font("JNeto_engine_lite/JetBrainsMono-Medium.ttf", FONT_SIZE)
 
 # COLORS
 
+WHITE = Color(255, 255, 255)
 GREY = Color(128, 128, 128)
 
 RED_PASTEL = Color(255, 105, 97)

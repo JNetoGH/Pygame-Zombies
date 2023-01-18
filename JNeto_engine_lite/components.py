@@ -10,9 +10,9 @@ class Component:
 
     def __init__(self, name: str):
         self.name = name.capitalize()
-        self.owner= None
+        self.owner = None
 
-    def update(self, game_object) -> None:
+    def update(self) -> None:
         pass
 
     def render_gizmos(self, game_surface: Surface) -> None:
@@ -124,8 +124,8 @@ class Collider(Component):
         self.color = constants.ORANGE_PASTEL
         self.label_text_render = constants.MY_FONT.render("collider", True, self.color, None)
 
-    def update(self, game_object) -> None:
-        self.__realign_with_game_object_owner(game_object)
+    def update(self) -> None:
+        self.__realign_with_game_object_owner(self.owner)
 
     def get_inner_rect_copy(self) -> Rect:
         return self.__inner_rect.copy()
@@ -180,7 +180,7 @@ class KeyTracker(Component):
     def reset_total_times_fired(self) -> None:
         self.total_times_fired = 0
 
-    def update(self, game_object) -> None:
+    def update(self) -> None:
         self.__has_key_been_fired_at_this_frame = False
         self.__has_key_been_released_at_this_frame = False
         if self.is_key_being_held_down and not self.__has_key_been_already_fired_but_not_released and not self.__has_key_been_fired_at_this_frame:
@@ -190,3 +190,49 @@ class KeyTracker(Component):
         if self.__has_key_been_already_fired_but_not_released and not self.is_key_being_held_down:
             self.__has_key_been_already_fired_but_not_released = False
             self.__has_key_been_released_at_this_frame = True
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+
+
+class Timer(Component):
+
+    # can execute a function oce the timer is over
+    def __init__(self, duration_in_ms, func=None):
+        super().__init__("Timer")
+        self.__duration_in_ms = duration_in_ms
+        self.__start_time = 0
+        self.__curren_moment = 0
+        self.__is_active = False
+        self.func = func
+
+    @property
+    def is_timer_active(self):
+        return self.__is_active
+
+    @property
+    def elapsed_time(self):
+        return self.__curren_moment - self.__start_time
+
+    def get_duration_in_ms(self):
+        return self.__duration_in_ms
+
+    def set_duration_in_ms(self, new_duration_in_ms):
+        self.__duration_in_ms = new_duration_in_ms
+
+    def activate(self):
+        self.__is_active = True
+        self.__start_time = pygame.time.get_ticks()
+
+    def deactivate(self):
+        self.__is_active = False
+        self.__start_time = 0
+
+    def update(self):
+        self.__curren_moment = pygame.time.get_ticks()
+        # if it has finished counting
+        if self.elapsed_time > self.__duration_in_ms and self.__is_active:
+            self.deactivate()
+            # if function is not none
+            if self.func:
+                self.func()

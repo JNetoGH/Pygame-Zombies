@@ -20,6 +20,7 @@ class GameObject:
         self.scene = None
         self.components: list[Component] = []
         self.transform: Transform = self.add_component(Transform())
+        self.cached_owner_name_gizmos_text = constants.MY_FONT.render(name, True, constants.WHITE, None)
 
     def start(self):
         pass
@@ -67,7 +68,7 @@ class Scene:
     def update(self):
         for game_object in self.game_objects:
             for component in game_object.components:
-                component.update(game_object)
+                component.update()
             game_object.update()
 
     def render(self):
@@ -75,13 +76,18 @@ class Scene:
             game_object.render(self.__game_surface)
 
     def render_gizmos(self, game_surface: Surface):
-        # GameObjects gizmos
         for game_object in self.game_objects:
+            # GameObjects gizmos
             game_object.render_gizmos(game_surface)
-        # Compenents gizmos
-        for game_object in self.game_objects:
+            # Compenents gizmos
             for component in game_object.components:
                 component.render_gizmos(game_surface)
+            # Name gizmos
+            name_pos = game_object.transform.get_position_copy()
+            name_pos.x += 5
+            name_pos.y = name_pos.y - game_object.cached_owner_name_gizmos_text.get_height()/2
+            game_surface.blit(game_object.cached_owner_name_gizmos_text, name_pos)
+
         # Mouse Gizmos
         mouse_render = constants.MY_FONT.render(f"mouse: {pygame.mouse.get_pos()}", True, constants.CYAN_PASTEL, None)
         game_surface.blit(mouse_render, (pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1] - 20))
