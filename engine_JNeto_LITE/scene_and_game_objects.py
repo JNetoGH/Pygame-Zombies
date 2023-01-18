@@ -3,8 +3,8 @@ import typing
 import pygame.mouse
 from pygame import Surface
 
-from JNeto_engine_lite import constants
-from JNeto_engine_lite.components import Transform, Component, Sprite, Collider
+from LITE_JNeto_game_engine import constants
+from LITE_JNeto_game_engine.components import Transform, Component, Sprite, Collider
 
 
 # =====================================================================================================================
@@ -81,7 +81,7 @@ class Scene:
 
     def __init__(self, game_surface: Surface):
         self.game_objects: list[GameObject] = []
-        self.__game_surface = game_surface
+        self.game_surface = game_surface
 
     def update(self):
         for game_object in self.game_objects:
@@ -91,7 +91,7 @@ class Scene:
 
     def render(self):
         for game_object in self.game_objects:
-            game_object.render(self.__game_surface)
+            game_object.render(self.game_surface)
 
     def render_gizmos(self, game_surface: Surface):
         for game_object in self.game_objects:

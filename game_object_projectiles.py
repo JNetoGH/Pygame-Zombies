@@ -46,6 +46,9 @@ class Bullet(GameObject):
         for game_object in self.scene.game_objects:
             if isinstance(game_object, Zombie):
                 if self.collider.is_there_overlap_with_rect(game_object.collider.get_inner_rect_copy()):
+                    player = self.scene.get_game_object("player")
+                    player.score += 1
+                    player.score_text = constants.MY_FONT.render(f"{player.score}", True, constants.WHITE)
                     game_object.destroy()
                     self.destroy()
 

@@ -6,8 +6,9 @@ pygame.init()
 
 # MY_FONT
 
-FONT_SIZE = 20
-MY_FONT = font.Font("JNeto_engine_lite/JetBrainsMono-Medium.ttf", FONT_SIZE)
+FONT_SIZE: int = 20
+FONT_PATH: str = "LITE_JNeto_game_engine/JetBrainsMono-Medium.ttf"
+MY_FONT: font.Font = font.Font(FONT_PATH, FONT_SIZE)
 
 # ------------------------------------------
 

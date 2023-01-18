@@ -1,13 +1,13 @@
 import sys
 import pygame
 from pygame import *
-from JNeto_engine_lite import constants
-from JNeto_engine_lite.scene_and_game_objects import Scene
+from LITE_JNeto_game_engine.scene_and_game_objects import Scene
 pygame.init()
 
 
 class GameLoop:
 
+    STOP: bool = False
     RESOLUTION = (1280, 720)
     GameSurface = pygame.display.set_mode(RESOLUTION)
     __CurrentScene: Scene = None
@@ -33,6 +33,9 @@ class GameLoop:
                 if event.type == pygame.KEYDOWN and event.key == K_z:
                     self.show_gizmos = not self.show_gizmos
             GameLoop.__update_axis()
+
+            if GameLoop.STOP:
+                continue
 
             # UPDATES
             pygame.display.set_caption(f"JNETO PRODUCTIONS LITE GAME ENGINE |  FPS {self.clock.get_fps():.1f}")
