@@ -14,7 +14,7 @@ class Zombie(GameObject):
         super().__init__("zombie")
 
         # Sprite Component
-        self.sprite: Sprite = self.add_component(Sprite("res/Zombie.png"))
+        self.sprite: Sprite = self.add_component(Sprite("res/zombie.png"))
         self.sprite.scale_image(0.4)
 
         # Collider Component

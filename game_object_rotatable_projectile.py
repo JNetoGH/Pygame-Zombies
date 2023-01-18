@@ -1,34 +1,30 @@
 from JNeto_engine_lite.components import Sprite, Collider
 from JNeto_engine_lite.game_loop import GameLoop
 from JNeto_engine_lite.scene_and_game_objects import GameObject
+from game_object_zombie import Zombie
 from pygame import Vector2
 import math
-
-from game_object_zombie import Zombie
 
 
 class RotatableProjectile(GameObject):
 
-    def __init__(self):
+    def __init__(self, player: GameObject):
         super().__init__("rotatable")
 
         # sprite
-        self.sprite: Sprite = self.add_component(Sprite("res/shuriken.png"))
-        self.sprite.scale_image(0.03)
+        self.sprite: Sprite = self.add_component(Sprite("res/shuriken_project.png"))
+        self.sprite.scale_image(1)
         self.sprite_spinning_angle = 0
-        self.sprite_spinnin_velocity = 150
+        self.sprite_spinnin_velocity = 250
 
         # collider
         self.collider: Collider = self.add_component(Collider(0, 0, 30, 30))
 
         # ROTATION
-        self.player = None
+        self.player = player
         self.angle = 0
         self.angular_velocity = 4
         self.DISTANCE_FROM_ORIGIN = 80
-
-    def start(self):
-        self.player: GameObject = self.scene.get_game_object("player")
 
     def update(self):
 

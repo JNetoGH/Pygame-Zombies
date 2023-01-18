@@ -17,7 +17,7 @@ class Player(GameObject):
         super().__init__("player")
 
         # Sprite Component
-        self.sprite: Sprite = self.add_component(Sprite("res/HumanShootgun.png"))
+        self.sprite: Sprite = self.add_component(Sprite("res/humanShootgun.png"))
         self.sprite.scale_image(0.4)
 
         # Collider Component
@@ -79,7 +79,7 @@ class Player(GameObject):
             if self.__current_wapon == 1:
                 self.scene.add_game_objects(Bullet(self.transform.get_position_copy(), self.direction, self.angle))
             elif self.__current_wapon == 2:
-                self.scene.add_game_objects(RotatableProjectile())
+                self.scene.add_game_objects(RotatableProjectile(self))
 
     def render_gizmos(self, game_surface: Surface):
         constants.draw_special_gizmos(game_surface, self.transform.get_position_copy(), self.direction, self.angle)
