@@ -5,7 +5,7 @@ from engine_JNeto_LITE import constants
 from engine_JNeto_LITE.components import Sprite, Collider
 from engine_JNeto_LITE.game_loop import GameLoop
 from engine_JNeto_LITE.scene_and_game_objects import GameObject
-from game_object_map import Barrier
+from game_objects.game_object_map import Barrier
 
 
 class Zombie(GameObject):
@@ -68,6 +68,7 @@ class Zombie(GameObject):
 
         # COLLISION WITH PLAYER
         if self.collider.is_there_overlap_with_rect(self.player.collider.get_inner_rect_copy()):
+            self.scene.add_game_objects(GameOverImage())
             self.player.game_over = True
 
     def render_gizmos(self, game_surface: Surface):
@@ -76,3 +77,11 @@ class Zombie(GameObject):
 
     def destroy(self):
         self.scene.remove_game_object(self)
+
+
+class GameOverImage(GameObject):
+    def __init__(self):
+        super().__init__("game_over_img")
+        self.sprite: Sprite = self.add_component(Sprite("game_art/game_over.png"))
+        self.sprite.scale_image(2)
+        self.transform.move_position(Vector2(GameLoop.RESOLUTION[0]//2, GameLoop.RESOLUTION[1]//2))

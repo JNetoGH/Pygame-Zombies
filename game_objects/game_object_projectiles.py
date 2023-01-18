@@ -3,8 +3,8 @@ from engine_JNeto_LITE import constants
 from engine_JNeto_LITE.components import Sprite, Collider
 from engine_JNeto_LITE.game_loop import GameLoop
 from engine_JNeto_LITE.scene_and_game_objects import GameObject
-from game_object_score_manager import ScoreManager
-from game_object_zombie import Zombie
+from game_objects.game_object_score_manager import ScoreManager
+from game_objects.game_object_zombie import Zombie
 import math
 
 

@@ -5,31 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d95ec159-82c1-48ba-8f1b-2b920c6aab8b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/game_art/log_ui.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_art/map.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_object_score_manager.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/projectile_button.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sounds/button.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sounds/button_click.wav" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_art/buttons/gun_hover.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_art/buttons/gun_selected.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_art/buttons/gun_unselected.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_art/buttons/shuriken_hover.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_art/buttons/shuriken_selected.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_art/buttons/shuriken_unselected.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_art/game_over.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/game_objects/game_object_buttons.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JNeto_engine_lite/JetBrainsMono-Medium.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/LITE_JNeto_game_engine/JetBrainsMono-Medium.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JNeto_engine_lite/components.py" beforeDir="false" afterPath="$PROJECT_DIR$/LITE_JNeto_game_engine/components.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JNeto_engine_lite/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/LITE_JNeto_game_engine/constants.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JNeto_engine_lite/game_loop.py" beforeDir="false" afterPath="$PROJECT_DIR$/LITE_JNeto_game_engine/game_loop.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JNeto_engine_lite/scene_and_game_objects.py" beforeDir="false" afterPath="$PROJECT_DIR$/LITE_JNeto_game_engine/scene_and_game_objects.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object_barrier.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object_bullet.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object_projectiles.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object_map.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object_map.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object_player.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object_player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object_rotatable_projectile.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object_zombie.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object_zombie.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object_zombie_instantiator.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_object_zombie_instantiator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_object_map.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_objects/game_object_map.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_object_player.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_objects/game_object_player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_object_projectile_button.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_object_projectiles.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_objects/game_object_projectiles.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_object_score_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_objects/game_object_score_manager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_object_zombie.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_objects/game_object_zombie.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_object_zombie_instantiator.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_objects/game_object_zombie_instantiator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_sounds/button.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_sounds/button_click.wav" beforeDir="false" afterPath="$PROJECT_DIR$/game_art/buttons/button_click.wav" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/bullet.png" beforeDir="false" afterPath="$PROJECT_DIR$/game_art/bullet.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/humanShootgun.png" beforeDir="false" afterPath="$PROJECT_DIR$/game_art/humanShootgun.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/map.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/shuriken_project.png" beforeDir="false" afterPath="$PROJECT_DIR$/game_art/shuriken_project.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/zombie.png" beforeDir="false" afterPath="$PROJECT_DIR$/game_art/zombie.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,9 +67,11 @@
       <recent name="C:\Users\JNeto\Desktop\Zombies\JNeto_engine_lite" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\JNeto\Desktop\Zombies\game_art\buttons" />
+      <recent name="C:\Users\JNeto\Desktop\Zombies\game_art" />
+      <recent name="C:\Users\JNeto\Desktop\Zombies\game_objects" />
       <recent name="C:\Users\JNeto\Desktop\Zombies\res" />
       <recent name="C:\Users\JNeto\Desktop\Zombies" />
-      <recent name="C:\Users\JNeto\Desktop\Zombies\JNeto_engine_lite" />
     </key>
   </component>
   <component name="RunManager">
@@ -116,7 +112,7 @@
       <workItem from="1673949637426" duration="3068000" />
       <workItem from="1673964090936" duration="34842000" />
       <workItem from="1674034984798" duration="5871000" />
-      <workItem from="1674046561685" duration="24481000" />
+      <workItem from="1674046561685" duration="29251000" />
     </task>
     <servers />
   </component>
@@ -135,6 +131,6 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Zombies$main.coverage" NAME="main Coverage Results" MODIFIED="1674071978835" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Zombies$main.coverage" NAME="main Coverage Results" MODIFIED="1674076932576" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

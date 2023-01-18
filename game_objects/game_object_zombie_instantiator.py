@@ -2,7 +2,7 @@ import pygame
 from pygame import Vector2
 from engine_JNeto_LITE.components import Timer, Collider
 from engine_JNeto_LITE.scene_and_game_objects import GameObject
-from game_object_zombie import Zombie
+from game_objects.game_object_zombie import Zombie
 import random
 
 
@@ -13,15 +13,20 @@ class ZombieInstantiator(GameObject):
         self.position = position
         self.transform.move_position(position)
         self.instantiation_frequency_in_seg = instantiation_frequency_in_seg
+
+        self.instantiated_zombies = 0
         self.timer: Timer = self.add_component(Timer(self.instantiation_frequency_in_seg * 1000, self.instantiate_zombie))
         self.instantiation_area: Collider = self.add_component(Collider(0, 0, width, height))
 
     def update(self):
         if not self.timer.is_timer_active:
             self.timer.activate()
+            # pregressive difficulty
+            self.instantiation_frequency_in_seg -= 0.1
+            self.instantiation_frequency_in_seg = 0.25 if self.instantiation_frequency_in_seg < 0.25 else self.instantiation_frequency_in_seg
+            self.timer.set_duration_in_ms(self.instantiation_frequency_in_seg * 1000)
 
     def instantiate_zombie(self):
-
         # sets a random point inside the instantiation rect
         instantiation_rect = self.instantiation_area.get_inner_rect_copy()
         start_range_point_x = self.position.x - instantiation_rect.width / 2

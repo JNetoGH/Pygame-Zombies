@@ -5,9 +5,10 @@ from engine_JNeto_LITE import constants
 from engine_JNeto_LITE.components import Sprite, Collider, KeyTracker
 from engine_JNeto_LITE.game_loop import GameLoop
 from engine_JNeto_LITE.scene_and_game_objects import GameObject
-from game_object_map import Barrier
-from game_object_projectiles import Bullet, RotatableProjectile
-from game_object_zombie_instantiator import ZombieInstantiator
+from game_objects.game_object_buttons import ButtonManager
+from game_objects.game_object_map import Barrier
+from game_objects.game_object_zombie_instantiator import ZombieInstantiator
+from game_objects.game_object_projectiles import RotatableProjectile, Bullet
 
 
 class Player(GameObject):
@@ -26,10 +27,7 @@ class Player(GameObject):
         self.collider.collidable_classes.append(Barrier)
         self.collider.collidable_classes.append(ZombieInstantiator)
 
-        # Key Tracker Component (for shooting, and switching guns)
-        self.__current_wapon = 1
-        self.one_tracker: KeyTracker = self.add_component(KeyTracker(K_1))
-        self.two_tracker: KeyTracker = self.add_component(KeyTracker(K_2))
+        # Key Tracker Component (for shooting)
         self.space_tracker: KeyTracker = self.add_component(KeyTracker(K_SPACE))
 
         # movement and related
@@ -72,17 +70,11 @@ class Player(GameObject):
             new_postion = current_position + self.direction * self.move_speed * GameLoop.Delta_Time
             self.transform.move_position(new_postion)
 
-        # WEAPON PICK
-        if self.one_tracker.has_key_been_fired_at_this_frame:
-            self.__current_wapon = 1
-        elif self.two_tracker.has_key_been_fired_at_this_frame:
-            self.__current_wapon = 2
-
-        # SHOOT
+        # SHOOT (current weapon is controlled by buttons)
         if self.space_tracker.has_key_been_fired_at_this_frame:
-            if self.__current_wapon == 1:
+            if ButtonManager.CurrentWeapon == 0:
                 self.scene.add_game_objects(Bullet(self.transform.get_position_copy(), self.direction, self.angle))
-            elif self.__current_wapon == 2:
+            elif ButtonManager.CurrentWeapon == 1:
                 self.scene.add_game_objects(RotatableProjectile(self))
 
     def render_gizmos(self, game_surface: Surface):
