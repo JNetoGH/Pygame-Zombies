@@ -1,6 +1,7 @@
-from JNeto_engine_lite.game_loop import GameLoop
-from JNeto_engine_lite.scene_and_game_objects import Scene
+from engine_JNeto_LITE.game_loop import GameLoop
+from engine_JNeto_LITE.scene_and_game_objects import Scene
 from game_object_player import Player
+from game_object_score_manager import ScoreManager
 from game_object_zombie_instantiator import ZombieInstantiator
 from game_object_map import MapGrass, MapCave
 from pygame import Vector2
@@ -15,7 +16,7 @@ zombie_instantiator_2 = ZombieInstantiator(position=Vector2(980, 5), width=287, 
 
 
 main_scene = Scene(game_loop.GameSurface)
-main_scene.add_game_objects(map, player, zombie_instantiator_1, zombie_instantiator_2)
+main_scene.add_game_objects(map, player, zombie_instantiator_1, zombie_instantiator_2, ScoreManager())
 
 
 game_loop.run(main_scene)

@@ -1,7 +1,7 @@
 import pygame
 from pygame import Vector2, Surface, Color, Rect
 from pygame.font import Font
-from LITE_JNeto_game_engine import constants
+from engine_JNeto_LITE import constants
 
 
 # =====================================================================================================================

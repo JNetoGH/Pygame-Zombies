@@ -1,7 +1,7 @@
 import sys
 import pygame
 from pygame import *
-from LITE_JNeto_game_engine.scene_and_game_objects import Scene
+from engine_JNeto_LITE.scene_and_game_objects import Scene
 pygame.init()
 
 

@@ -1,7 +1,7 @@
 import pygame
 from pygame import Vector2
-from JNeto_engine_lite.components import Timer, Collider
-from JNeto_engine_lite.scene_and_game_objects import GameObject
+from engine_JNeto_LITE.components import Timer, Collider
+from engine_JNeto_LITE.scene_and_game_objects import GameObject
 from game_object_zombie import Zombie
 import random
 

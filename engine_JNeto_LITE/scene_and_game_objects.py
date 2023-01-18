@@ -3,8 +3,8 @@ import typing
 import pygame.mouse
 from pygame import Surface
 
-from LITE_JNeto_game_engine import constants
-from LITE_JNeto_game_engine.components import Transform, Component, Sprite, Collider
+from engine_JNeto_LITE import constants
+from engine_JNeto_LITE.components import Transform, Component, Sprite, Collider
 
 
 # =====================================================================================================================

@@ -1,13 +1,12 @@
 import numpy
 from pygame import *
 import math
-from JNeto_engine_lite import constants
-from JNeto_engine_lite.components import Sprite, Collider, KeyTracker
-from JNeto_engine_lite.game_loop import GameLoop
-from JNeto_engine_lite.scene_and_game_objects import GameObject
-from game_object_barrier import Barrier
-from game_object_bullet import Bullet
-from game_object_rotatable_projectile import RotatableProjectile
+from engine_JNeto_LITE import constants
+from engine_JNeto_LITE.components import Sprite, Collider, KeyTracker
+from engine_JNeto_LITE.game_loop import GameLoop
+from engine_JNeto_LITE.scene_and_game_objects import GameObject
+from game_object_map import Barrier
+from game_object_projectiles import Bullet, RotatableProjectile
 from game_object_zombie_instantiator import ZombieInstantiator
 
 
@@ -16,8 +15,10 @@ class Player(GameObject):
     def __init__(self, initial_position: Vector2):
         super().__init__("player")
 
+        self.game_over = False
+
         # Sprite Component
-        self.sprite: Sprite = self.add_component(Sprite("res/humanShootgun.png"))
+        self.sprite: Sprite = self.add_component(Sprite("game_art/humanShootgun.png"))
         self.sprite.scale_image(0.4)
 
         # Collider Component
@@ -32,7 +33,7 @@ class Player(GameObject):
         self.space_tracker: KeyTracker = self.add_component(KeyTracker(K_SPACE))
 
         # movement and related
-        self.move_speed = 200
+        self.move_speed = 175
         self.angle = 20
         self.angular_velocity = 150
         self.direction = Vector2()
@@ -41,6 +42,9 @@ class Player(GameObject):
         self.transform.move_position(initial_position)
 
     def update(self):
+
+        if self.game_over:
+            GameLoop.STOP = True
 
         # ANGLE INCREMENT (for direciton)
         if GameLoop.Horizontal_Axis == 1:

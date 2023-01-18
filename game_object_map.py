@@ -1,8 +1,7 @@
-from JNeto_engine_lite.components import Sprite
-from JNeto_engine_lite.game_loop import GameLoop
-from JNeto_engine_lite.scene_and_game_objects import GameObject
+from engine_JNeto_LITE.components import Sprite, Collider
+from engine_JNeto_LITE.game_loop import GameLoop
+from engine_JNeto_LITE.scene_and_game_objects import GameObject
 from pygame import Vector2
-from game_object_barrier import Barrier
 
 
 class Map(GameObject):
@@ -15,25 +14,24 @@ class Map(GameObject):
         self.sprite = self.add_component(Sprite(path_to_image))
 
 
-#--------------------------------------------------------------------
+# --------------------------------------------------------------------
 
 
 class MapGrass(Map):
     def __init__(self):
-        super().__init__("res/map.png")
+        super().__init__("game_art/map.png")
 
     def start(self):
-        
+
         rock_1 = Barrier(position=Vector2(593, 430), width=25, height=25)
         rock_2 = Barrier(position=Vector2(885, 405), width=25, height=25)
         stump_1 = Barrier(position=Vector2(880, 270), width=25, height=25)
         stump_2 = Barrier(position=Vector2(305, 525), width=25, height=25)
-        stump_3 = Barrier(position=Vector2(992, 339), width=30, height=25)
         wall_1 = Barrier(position=Vector2(130, 680), width=260, height=25)
         wall_2 = Barrier(position=Vector2(355, 650), width=200, height=25)
-        wall_3 = Barrier(position=Vector2(500, 615), width=200, height=25)
-        wall_4 = Barrier(position=Vector2(600, 568), width=140, height=50)
-        wall_5 = Barrier(position=Vector2(725, 525), width=150, height=25)
+        wall_3 = Barrier(position=Vector2(550, 615), width=200, height=25)
+        wall_4 = Barrier(position=Vector2(650, 568), width=140, height=50)
+        wall_5 = Barrier(position=Vector2(775, 525), width=150, height=25)
         wall_6 = Barrier(position=Vector2(785, 500), width=25, height=25)
         wall_7 = Barrier(position=Vector2(810, 455), width=25, height=70)
         wall_8 = Barrier(position=Vector2(860, 425), width=70, height=25)
@@ -53,7 +51,7 @@ class MapGrass(Map):
         wall_22 = Barrier(position=Vector2(95, 315), width=100, height=25)
         wall_23 = Barrier(position=Vector2(32, 365), width=25, height=75)
 
-        self.scene.add_game_objects(rock_1, rock_2, stump_1, stump_2, stump_3, 
+        self.scene.add_game_objects(rock_1, rock_2, stump_1, stump_2,
             wall_1, wall_2, wall_3, wall_4, wall_5, wall_6, wall_7, wall_8, wall_9,wall_10, wall_11, wall_12, wall_13, wall_14,
             wall_15, wall_16, wall_17, wall_18, wall_19, wall_20, wall_21, wall_22, wall_23)
 
@@ -64,9 +62,21 @@ class MapGrass(Map):
 
 class MapCave(Map):
     def __init__(self):
-        super().__init__("res/map.png")
+        super().__init__("game_art/map.png")
 
     def start(self):
         example_barrier = Barrier(position=Vector2(10, 500), width=30, height=30)
         example_barrier2 = Barrier(position=Vector2(40, 500), width=10, height=100)
         self.scene.add_game_objects(example_barrier, example_barrier2)
+
+
+class Barrier(GameObject):
+
+    def __init__(self, position: Vector2, width, height):
+        super().__init__("barrier")
+
+        # Collider Component
+        self.collider: Collider = self.add_component(Collider(0, 0, width, height))
+
+        # POSITION
+        self.transform.move_position(position)

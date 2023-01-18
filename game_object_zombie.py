@@ -1,11 +1,11 @@
 import math
 import numpy.linalg
 from pygame import Vector2, Surface
-from JNeto_engine_lite import constants
-from JNeto_engine_lite.components import Sprite, Collider
-from JNeto_engine_lite.game_loop import GameLoop
-from JNeto_engine_lite.scene_and_game_objects import GameObject
-from game_object_barrier import Barrier
+from engine_JNeto_LITE import constants
+from engine_JNeto_LITE.components import Sprite, Collider
+from engine_JNeto_LITE.game_loop import GameLoop
+from engine_JNeto_LITE.scene_and_game_objects import GameObject
+from game_object_map import Barrier
 
 
 class Zombie(GameObject):
@@ -13,8 +13,10 @@ class Zombie(GameObject):
     def __init__(self, initial_postion: Vector2):
         super().__init__("zombie")
 
+        self.player = None
+
         # Sprite Component
-        self.sprite: Sprite = self.add_component(Sprite("res/zombie.png"))
+        self.sprite: Sprite = self.add_component(Sprite("game_art/zombie.png"))
         self.sprite.scale_image(0.4)
 
         # Collider Component
@@ -24,16 +26,19 @@ class Zombie(GameObject):
         # movement and related
         self.move_speed = 75
         self.angle_to_player = 20
-        self.angular_velocity = 100
+        self.angular_velocity = 80
         self.direction_to_player = Vector2(0, 0)
 
         # initial position
         self.transform.move_position(initial_postion)
 
+    def start(self):
+        self.player = self.scene.get_game_object("player")
+
     def update(self):
 
         # DISTANCE TO PLAYER (used to get the direction to player)
-        player_position = self.scene.get_game_object("player").transform.get_position_copy()
+        player_position = self.player.transform.get_position_copy()
         zombie_position = self.transform.get_position_copy()
         distance_to_player = player_position - self.transform.get_position_copy()
 
@@ -60,6 +65,10 @@ class Zombie(GameObject):
 
         # ROTATION
         self.sprite.rotate_image(self.angle_to_player)
+
+        # COLLISION WITH PLAYER
+        if self.collider.is_there_overlap_with_rect(self.player.collider.get_inner_rect_copy()):
+            self.player.game_over = True
 
     def render_gizmos(self, game_surface: Surface):
         # distance to player
