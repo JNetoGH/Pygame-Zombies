@@ -4,25 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d95ec159-82c1-48ba-8f1b-2b920c6aab8b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/game_art/buttons/gun_hover.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_art/buttons/gun_selected.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_art/buttons/gun_unselected.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_art/buttons/shuriken_hover.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_art/buttons/shuriken_selected.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_art/buttons/shuriken_unselected.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_art/game_over.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/game_objects/game_object_buttons.py" afterDir="false" />
+    <list default="true" id="b7dd9746-9c9e-417b-ad27-af7f82cc588d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object_map.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_objects/game_object_map.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object_player.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_objects/game_object_player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object_projectile_button.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object_projectiles.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_objects/game_object_projectiles.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object_score_manager.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_objects/game_object_score_manager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object_zombie.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_objects/game_object_zombie.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_object_zombie_instantiator.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_objects/game_object_zombie_instantiator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_sounds/button.wav" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/game_sounds/button_click.wav" beforeDir="false" afterPath="$PROJECT_DIR$/game_art/buttons/button_click.wav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine_JNeto_LITE/components.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine_JNeto_LITE/components.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_objects/game_object_player.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_objects/game_object_player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game_objects/game_object_projectiles.py" beforeDir="false" afterPath="$PROJECT_DIR$/game_objects/game_object_projectiles.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -30,20 +17,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Python Script" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2KNavURXLkzhRXMDWhe6WCKSsjI" />
+  <component name="ProjectId" id="2KWKi0x70POmefyEFaBwXjhLaL0" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -53,7 +33,6 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/JNeto/Desktop/Zombies",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -61,76 +40,22 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\JNeto\Desktop\Zombies" />
-      <recent name="C:\Users\JNeto\Desktop\Zombies\JNeto_engine_lite" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\JNeto\Desktop\Zombies\game_art\buttons" />
-      <recent name="C:\Users\JNeto\Desktop\Zombies\game_art" />
-      <recent name="C:\Users\JNeto\Desktop\Zombies\game_objects" />
-      <recent name="C:\Users\JNeto\Desktop\Zombies\res" />
-      <recent name="C:\Users\JNeto\Desktop\Zombies" />
-    </key>
-  </component>
-  <component name="RunManager">
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
-      <module name="Zombies" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="C:\Users\JNeto\AppData\Local\Programs\Python\Python310\python.exe" />
-      <option name="SDK_NAME" value="Python 3.10" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="d95ec159-82c1-48ba-8f1b-2b920c6aab8b" name="Changes" comment="" />
-      <created>1673817725031</created>
+      <changelist id="b7dd9746-9c9e-417b-ad27-af7f82cc588d" name="Changes" comment="" />
+      <created>1674085021713</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1673817725031</updated>
-      <workItem from="1673817726185" duration="11340000" />
-      <workItem from="1673861464589" duration="2547000" />
-      <workItem from="1673949637426" duration="3068000" />
-      <workItem from="1673964090936" duration="34842000" />
-      <workItem from="1674034984798" duration="5871000" />
-      <workItem from="1674046561685" duration="29251000" />
+      <updated>1674085021713</updated>
+      <workItem from="1674085023490" duration="421000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Zombies$main.coverage" NAME="main Coverage Results" MODIFIED="1674076932576" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/game$main.coverage" NAME="main Coverage Results" MODIFIED="1674085420201" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

@@ -1,3 +1,4 @@
+import pygame
 from pygame import Surface, Vector2
 from engine_JNeto_LITE import constants
 from engine_JNeto_LITE.components import Sprite, Collider
@@ -34,6 +35,9 @@ class Bullet(GameObject):
 
         # INITIAL POSITION
         self.transform.move_position(self.initial_position)
+
+    def start(self):
+        pygame.mixer.Sound("game_art/shot.wav").play()
 
     def update(self):
 
@@ -88,6 +92,9 @@ class RotatableProjectile(GameObject):
         self.angular_velocity = 4
         self.DISTANCE_FROM_ORIGIN = 80
 
+    def start(self):
+        pygame.mixer.Sound("game_art/slash.wav").play()
+
     def update(self):
 
         # INCREASES THE AGLE USING THE ANGLUAR VELOCITY (framerate independent, used in the rotation bellow)
@@ -109,6 +116,7 @@ class RotatableProjectile(GameObject):
         for game_object in self.scene.game_objects:
             if isinstance(game_object, Zombie):
                 if self.collider.is_there_overlap_with_rect(game_object.collider.get_inner_rect_copy()):
+                    pygame.mixer.Sound("game_art/star.wav").play()
                     ScoreManager.Score += 1
                     ScoreManager.ScoreText = ScoreManager.ScoreFont.render(f"{ScoreManager.Score}", True, constants.WHITE)
                     game_object.destroy()
@@ -120,3 +128,9 @@ class RotatableProjectile(GameObject):
 
     def destroy(self):
         self.scene.remove_game_object(self)
+
+
+# =====================================================================================================================
+# =====================================================================================================================
+
+# class Boomorang()

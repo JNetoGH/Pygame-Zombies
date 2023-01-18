@@ -59,7 +59,8 @@ class Player(GameObject):
         # DIRECTION (from angle in radians)
         angle_as_radians = (self.angle + 90) * math.pi / 180  # +90º because the img faces ↑, so the default → turns ↑
         self.direction = Vector2(math.cos(angle_as_radians), - math.sin(angle_as_radians))
-        if numpy.linalg.norm(self.direction) > 0:  # normalizes the dir, avoiding div by 0 exeptions, ex: vector=(0, 0)
+        # normalizes the dir, avoiding div by 0 exceptions, ex: vector=(0, 0)
+        if numpy.linalg.norm(self.direction) > 0:
             self.direction = self.direction / numpy.linalg.norm(self.direction)
 
         # MOVEMENT

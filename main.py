@@ -8,6 +8,19 @@ from game_objects.game_object_map import MapGrass
 from pygame import Vector2
 
 
+"""
+JOÃO NETO (a22200558): 
+Responsável geral e líder de projeto, trabalhei na criação da engine e core mechanincs do game, 
+tais quais as ilustradas no documento pdf enviado juntamente ao projeto, tendo com base a implementação
+puramente matemática nos mais diversos aspectos do game.
+
+DAVID MENDES (A22203255):
+Dev Axuliar, esteve ao lado em todas as decisões, ajudou a co-criar o sistema de colisões, foi o responsável
+pelas artes do jogo, e game design, tendo importancia primordial no refinamento dos parâmetros utilizados dentro 
+do game tanto para fins matemáticos quantos de simulação física.
+"""
+
+
 game_loop = GameLoop()
 
 map = MapGrass()

@@ -47,7 +47,6 @@ class Transform(Component):
             return
 
         for other in self.owner.scene.game_objects:
-
             if other == self.owner:
                 continue
             if not other.__class__ in collider.collidable_classes:
