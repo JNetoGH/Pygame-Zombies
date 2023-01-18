@@ -10,10 +10,12 @@ game_loop = GameLoop()
 
 map = MapGrass()
 player = Player(initial_position=Vector2(500, 400))
-zombie_instantiator = ZombieInstantiator(position=Vector2(100, 300), width=20, height=400, instantiation_frequency_in_seg= 4)
+zombie_instantiator_1 = ZombieInstantiator(position=Vector2(10, 500), width=20, height=200, instantiation_frequency_in_seg= 4)
+zombie_instantiator_2 = ZombieInstantiator(position=Vector2(990, 20), width=350, height=20, instantiation_frequency_in_seg= 4)
+
 
 main_scene = Scene(game_loop.GameSurface)
-main_scene.add_game_objects(map, player, zombie_instantiator)
+main_scene.add_game_objects(map, player, zombie_instantiator_1, zombie_instantiator_2)
 
 
 game_loop.run(main_scene)
