@@ -33,10 +33,10 @@ GIZMOS_WIDTH = 2
 GIZMOS_LINE_LENGTH = 100
 # gizmos caching (texs intantiations are to have in pygame, so i am caching them all)
 CACHED_0_ANGLE_TEXT = MY_FONT.render("0º", True, YELLOW_PASTEL, None)
-CACHED_ANGLES_TEXTS = [MY_FONT.render(f"dir: {i}º", True, PINK_PASTEL, None) for i in range(0, 361)]
+CACHED_ANGLES_TEXTS = [MY_FONT.render(f"{i}º", True, PINK_PASTEL, None) for i in range(0, 361)]
 
 
-def draw_special_gizmos(game_surface: Surface, position: Vector2, direction: Vector2, angle):
+def draw_special_gizmos(game_surface: Surface, position: Vector2, direction: Vector2, angle) -> None:
     # 0ª line
     end = position + Vector2(0, -1) * GIZMOS_LINE_LENGTH
     pygame.draw.line(game_surface, YELLOW_PASTEL, position, end, GIZMOS_WIDTH)
@@ -46,3 +46,15 @@ def draw_special_gizmos(game_surface: Surface, position: Vector2, direction: Vec
     end_player_dir = position + direction * GIZMOS_LINE_LENGTH
     pygame.draw.line(game_surface, PINK_PASTEL, position, end_player_dir, GIZMOS_WIDTH)
     game_surface.blit(CACHED_ANGLES_TEXTS[int(angle)], end_player_dir)
+
+
+def get_converted_angle_to_0_360_range(angle):
+    # 0 + what passed from 360
+    print(f"beore: {angle}")
+    if angle > 360:
+        angle = angle - 360
+    # 360 - what passed from 0
+    elif angle < 0:
+        angle = 360 - (angle * -1)
+    print(f"after: {angle}\n")
+    return angle

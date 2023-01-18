@@ -7,6 +7,7 @@ from JNeto_engine_lite.game_loop import GameLoop
 from JNeto_engine_lite.scene_and_game_objects import GameObject
 from game_object_barrier import Barrier
 from game_object_bullet import Bullet
+from game_object_rotatable_projectile import RotatableProjectile
 from game_object_zombie_instantiator import ZombieInstantiator
 
 
@@ -44,9 +45,8 @@ class Player(GameObject):
         elif GameLoop.Horizontal_Axis == -1:
             self.angle = self.angle + self.angular_velocity * GameLoop.Delta_Time
 
-        # KEEPS THE ANGLE IN 0º <=> 360º RANGE (it works with a 7232º angle, but I prefer keeping it in this range)
-        self.angle = self.angle = 0 + (self.angle - 360) if self.angle > 360 else self.angle  # 0 + what passed from 360
-        self.angle = self.angle = 360 - (self.angle * -1) if self.angle < 0 else self.angle   # 360 - what passed from 0
+        # KEEPS THE ANGLE IN 0º <=> 360º RANGE (in order to work with my cached texts for perfromance)
+        self.angle = constants.get_converted_angle_to_0_360_range(self.angle)
 
         # ROTATION (towards angle)
         self.sprite.rotate_image(self.angle)
@@ -67,7 +67,8 @@ class Player(GameObject):
 
         # SHOOT
         if self.space_tracker.has_key_been_fired_at_this_frame:
-            self.scene.add_game_objects(Bullet(self.transform.get_position_copy(), self.direction, self.angle))
+            self.scene.add_game_objects(RotatableProjectile())
+            # self.scene.add_game_objects(Bullet(self.transform.get_position_copy(), self.direction, self.angle))
 
     def render_gizmos(self, game_surface: Surface):
         constants.draw_special_gizmos(game_surface, self.transform.get_position_copy(), self.direction, self.angle)

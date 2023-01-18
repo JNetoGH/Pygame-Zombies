@@ -55,16 +55,14 @@ class Zombie(GameObject):
         # converts radians to degrees
         self.angle_to_player = (rads * 180/math.pi) + 90  # +90º because the img faces ↑, so the default → turns ↑
 
-        # KEEPS THE ANGLE IN 0º <=> 360º RANGE (it works with a 7232º angle, but I prefer keeping it in this range)
-        self.angle_to_player = 0 + (self.angle_to_player - 360) if self.angle_to_player > 360 else self.angle_to_player # 0 + what passed from 360
-        self.angle_to_player = self.angle_to_player = 360 - (self.angle_to_player * -1) if self.angle_to_player < 0 else self.angle_to_player  # 360 - what passed from 0
+        # KEEPS THE ANGLE IN 0º <=> 360º RANGE (in order to work with my cached texts for perfromance)
+        self.angle_to_player = constants.get_converted_angle_to_0_360_range(self.angle_to_player)
 
         # ROTATION
         self.sprite.rotate_image(self.angle_to_player)
 
     def render_gizmos(self, game_surface: Surface):
         # distance to player
-        # pygame.draw.line(game_surface, constants.GREEN_PASTEL, self.transform.get_position_copy(), self.scene.get_game_object("player").transform.get_position_copy())
         constants.draw_special_gizmos(game_surface, self.transform.get_position_copy(), self.direction_to_player, self.angle_to_player)
 
     def destroy(self):
