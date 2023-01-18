@@ -36,7 +36,7 @@ class Transform(Component):
         self.__position = position
 
     def render_gizmos(self, game_surface: Surface) -> None:
-        pygame.draw.circle(game_surface, Color("white"), self.__position, 5)
+        pygame.draw.circle(game_surface, Color("white"), self.__position, constants.GIZMOS_WIDTH*2)
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -57,7 +57,7 @@ class Sprite(Component):
 
         # gizmos
         self.color = constants.RED_PASTEL
-        self.label_text_render = constants.MY_FONT.render("sprite rect", True, self.color, None)
+        self.label_text_render = constants.MY_FONT.render("sprite", True, self.color, None)
 
     def change_image(self, image_path: str) -> None:
         self.image = pygame.image.load(image_path).convert_alpha()
@@ -71,7 +71,7 @@ class Sprite(Component):
         self.scale_image(self.scale)
 
     def render_gizmos(self, game_surface: Surface) -> None:
-        pygame.draw.rect(game_surface, self.color, self.image_rect, 2)
+        pygame.draw.rect(game_surface, self.color, self.image_rect, constants.GIZMOS_WIDTH)
         pos = (self.image_rect.x, self.image_rect.y - constants.FONT_SIZE - 10)
         game_surface.blit(self.label_text_render, pos)
 
@@ -91,9 +91,17 @@ class Collider(Component):
         self.__inner_rect: Rect = Rect(0, 0, self.width, self.height)
 
         # gizmos
-        self.WIDTH = 2
         self.color = constants.ORANGE_PASTEL
-        self.label_text_render = constants.MY_FONT.render("Collider", True, self.color, None)
+        self.label_text_render = constants.MY_FONT.render("collider", True, self.color, None)
+
+    def get_inner_rect_copy(self) -> Rect:
+        return self.__inner_rect.copy()
+
+    def is_there_overlap_with_point(self, point: pygame.Vector2) -> bool:
+        return self.__inner_rect.collidepoint(point.x, point.y)
+
+    def is_there_overlap_with_rect(self, rect: pygame.Rect) -> bool:
+        return self.__inner_rect.colliderect(rect)
 
     def update(self, game_object) -> None:
         self.__realign_with_game_object_owner(game_object)
@@ -109,7 +117,7 @@ class Collider(Component):
         self.__inner_rect.centery = round(game_object.transform.get_position_copy().y + self.offset_from_game_object_y)
 
     def render_gizmos(self, game_surface: Surface) -> None:
-        pygame.draw.rect(game_surface, self.color, self.__inner_rect, self.WIDTH)
+        pygame.draw.rect(game_surface, self.color, self.__inner_rect, constants.GIZMOS_WIDTH)
         pos = (self.__inner_rect.x, self.__inner_rect.y + self.__inner_rect.height + 5)
         game_surface.blit(self.label_text_render, pos)
 

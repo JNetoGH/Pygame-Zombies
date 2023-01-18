@@ -1,4 +1,3 @@
-import pygame.image
 import numpy
 from pygame import *
 import math
@@ -6,7 +5,7 @@ from JNeto_engine_lite import constants
 from JNeto_engine_lite.components import Sprite, Collider, KeyTracker
 from JNeto_engine_lite.game_loop import GameLoop
 from JNeto_engine_lite.scene_and_game_objects import GameObject
-from bullet import Bullet
+from game_object_bullet import Bullet
 
 
 class Player(GameObject):
@@ -14,18 +13,12 @@ class Player(GameObject):
     def __init__(self):
         super().__init__("player")
 
-        # gizmos caching (texs intantiations are to have in pygame, so i am caching them all)
-        self.LINE_SIZES = 100
-        self.LINE_WIDTHS = 2
-        self.cached_origin_angle = constants.MY_FONT.render("0º", True, constants.YELLOW_PASTEL, None)
-        self.cached_angles = [constants.MY_FONT.render(f"dir: {i}º", True, constants.PINK_PASTEL, None) for i in range(0, 361)]
-
         # Sprite Component
         self.sprite: Sprite = self.add_component(Sprite("res/HumanShootgun.png"))
         self.sprite.scale_image(0.5)
 
         # Collider Component
-        self.collider: Collider = self.add_component(Collider(0, 18, 35, 22))
+        self.collider: Collider = self.add_component(Collider(0, 0, 35, 35))
 
         # Key Tracker Component (for shooting)
         self.space_tracker = self.add_component(KeyTracker(K_SPACE))
@@ -33,10 +26,9 @@ class Player(GameObject):
         # movement and related
         self.move_speed = 200
         self.angle = 20
-        self.angular_velocity = 100
+        self.angular_velocity = 150
         self.direction = Vector2()
 
-    def start(self):
         # initial position
         self.transform.move_position(Vector2(200, 200))
 
@@ -76,19 +68,4 @@ class Player(GameObject):
 
     def render_gizmos(self, game_surface: Surface):
         super().render_gizmos(game_surface)
-
-        # player 0ª line
-        start = self.transform.get_position_copy()
-        end = self.transform.get_position_copy() + Vector2(0, -1) * self.LINE_SIZES
-        pygame.draw.line(game_surface, constants.YELLOW_PASTEL, start, end, self.LINE_WIDTHS)
-        end.x += 5
-        game_surface.blit(self.cached_origin_angle, end)
-
-        # player's direction
-        end_player_dir = self.transform.get_position_copy() + self.direction * self.LINE_SIZES
-        pygame.draw.line(game_surface, constants.PINK_PASTEL, start, end_player_dir, self.LINE_WIDTHS)
-        game_surface.blit(self.cached_angles[int(self.angle)], end_player_dir)
-
-        # player position to mouse position line
-        mouse_pos = pygame.mouse.get_pos()
-        pygame.draw.line(game_surface, constants.CYAN_PASTEL, start, mouse_pos, self.LINE_WIDTHS)
+        constants.draw_special_gizmos(game_surface, self.transform.get_position_copy(), self.direction, self.angle)
