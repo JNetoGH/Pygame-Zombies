@@ -23,14 +23,17 @@ class MapGrass(Map):
         super().__init__("res/map.png")
 
     def start(self):
-        rock_1 = Barrier(position=Vector2(208, 400), width=16, height=16)
-        rock_2 = Barrier(position=Vector2(593, 430), width=16, height=16)
-        rock_3 = Barrier(position=Vector2(658, 271), width=16, height=16)
-        wall_1 = Barrier(position=Vector2(130, 680), width=260, height=16)
-        wall_2 = Barrier(position=Vector2(350, 665), width=200, height=16)
-        wall_3 = Barrier(position=Vector2(510, 615), width=200, height=16)
+        rock_1 = Barrier(position=Vector2(525, 300), width=25, height=25)
+        rock_2 = Barrier(position=Vector2(593, 430), width=25, height=25)
+        stump_1 = Barrier(position=Vector2(880, 270), width=25, height=25)
+        stump_2 = Barrier(position=Vector2(305, 525), width=25, height=25)
+        wall_1 = Barrier(position=Vector2(130, 680), width=260, height=25)
+        wall_2 = Barrier(position=Vector2(355, 650), width=200, height=25)
+        wall_3 = Barrier(position=Vector2(500, 615), width=200, height=25)
+        wall_4 = Barrier(position=Vector2(613, 565), width=150, height=50)
+        wall_5 = Barrier(position=Vector2(613, 555), width=100, height=25)
 
-        self.scene.add_game_objects(rock_1, rock_2, rock_3, wall_1, wall_2, wall_3)
+        self.scene.add_game_objects(rock_1, rock_2, stump_1, stump_2, wall_1, wall_2, wall_3, wall_4)
 
 
 

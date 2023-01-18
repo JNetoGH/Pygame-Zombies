@@ -33,15 +33,14 @@ class Transform(Component):
         return self.__position.copy()
 
     def move_position(self, new_position: Vector2) -> None:
-
-        if not self.owner.has_component("Collider"):
+        if not self.owner.has_collider_component:
             self.__position = new_position
             return
         if self.owner.scene is None:
             self.__position = new_position
             return
 
-        collider: Collider = self.owner.get_component("Collider")
+        collider: Collider = self.owner.collider_component
         if len(collider.collidable_classes) == 0:
             self.__position = new_position
             return
@@ -52,12 +51,12 @@ class Transform(Component):
                 continue
             if not other.__class__ in collider.collidable_classes:
                 continue
-            if not other.has_component("Collider"):
+            if not other.has_collider_component:
                 continue
             projection = collider.get_inner_rect_copy()
             projection.centerx = new_position.x
             projection.centery = new_position.y
-            if other.get_component("Collider").is_there_overlap_with_rect(projection):
+            if other.collider_component.is_there_overlap_with_rect(projection):
                 is_projection_colling = True
         if not is_projection_colling:
             self.__position = new_position
@@ -78,6 +77,7 @@ class Sprite(Component):
         self.image = pygame.image.load(image_path).convert_alpha()
         self.buffered_original_image: Surface = self.image.copy()
         self.scale = 1
+        self.angle = 0
 
         # image rect
         self.image_rect: Rect = self.image.get_rect()
@@ -94,7 +94,11 @@ class Sprite(Component):
         self.scale = scale
 
     def rotate_image(self, angle) -> None:
-        self.image = pygame.transform.rotate(self.buffered_original_image, angle)
+        # check for performance
+        if self.angle == angle:
+            return
+        self.angle = angle
+        self.image = pygame.transform.rotate(self.buffered_original_image, self.angle)
         self.scale_image(self.scale)
 
     def render_gizmos(self, game_surface: Surface) -> None:
