@@ -50,11 +50,9 @@ def draw_special_gizmos(game_surface: Surface, position: Vector2, direction: Vec
 
 def get_converted_angle_to_0_360_range(angle):
     # 0 + what passed from 360
-    print(f"beore: {angle}")
     if angle > 360:
         angle = angle - 360
     # 360 - what passed from 0
     elif angle < 0:
         angle = 360 - (angle * -1)
-    print(f"after: {angle}\n")
     return angle

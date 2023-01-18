@@ -1,9 +1,10 @@
-from JNeto_engine_lite import constants
-from JNeto_engine_lite.components import Sprite
+from JNeto_engine_lite.components import Sprite, Collider
 from JNeto_engine_lite.game_loop import GameLoop
 from JNeto_engine_lite.scene_and_game_objects import GameObject
-from pygame import Vector2, Surface
+from pygame import Vector2
 import math
+
+from game_object_zombie import Zombie
 
 
 class RotatableProjectile(GameObject):
@@ -12,18 +13,25 @@ class RotatableProjectile(GameObject):
         super().__init__("rotatable")
 
         # sprite
-        sprite: Sprite = self.add_component(Sprite("res/shuriken.png"))
+        self.sprite: Sprite = self.add_component(Sprite("res/shuriken.png"))
+        self.sprite.scale_image(0.03)
+        self.sprite_spinning_angle = 0
+        self.sprite_spinnin_velocity = 150
+
+        # collider
+        self.collider: Collider = self.add_component(Collider(0, 0, 30, 30))
 
         # ROTATION
         self.player = None
         self.angle = 0
-        self.angular_velocity = 5
+        self.angular_velocity = 4
         self.DISTANCE_FROM_ORIGIN = 80
 
     def start(self):
         self.player: GameObject = self.scene.get_game_object("player")
 
     def update(self):
+
         # INCREASES THE AGLE USING THE ANGLUAR VELOCITY (framerate independent, used in the rotation bellow)
         self.angle += self.angular_velocity * GameLoop.Delta_Time
 
@@ -39,5 +47,16 @@ class RotatableProjectile(GameObject):
         # MOVES THE ROTATE ITEM BACK TO PLAYER
         self.transform.move_position(self.player.transform.get_position_copy() + new_position)
 
+        # COLLISION WITH ZOMBIE (destorys bullet and zombie)
+        for game_object in self.scene.game_objects:
+            if isinstance(game_object, Zombie):
+                if self.collider.is_there_overlap_with_rect(game_object.collider.get_inner_rect_copy()):
+                    game_object.destroy()
+                    self.destroy()
 
+        # SPRITE SPINNING ANIMATION
+        self.sprite.rotate_image(self.sprite_spinning_angle)
+        self.sprite_spinning_angle += self.sprite_spinnin_velocity * GameLoop.Delta_Time
 
+    def destroy(self):
+        self.scene.remove_game_object(self)

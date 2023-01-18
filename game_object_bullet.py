@@ -42,7 +42,7 @@ class Bullet(GameObject):
         if out_of_screen:
             self.destroy()
 
-        # COLLISION WITH ZOMBIE (destorys bullten and zombie)
+        # COLLISION WITH ZOMBIE (destorys bullet and zombie)
         for game_object in self.scene.game_objects:
             if isinstance(game_object, Zombie):
                 if self.collider.is_there_overlap_with_rect(game_object.collider.get_inner_rect_copy()):

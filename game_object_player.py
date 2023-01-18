@@ -25,8 +25,11 @@ class Player(GameObject):
         self.collider.collidable_classes.append(Barrier)
         self.collider.collidable_classes.append(ZombieInstantiator)
 
-        # Key Tracker Component (for shooting)
-        self.space_tracker = self.add_component(KeyTracker(K_SPACE))
+        # Key Tracker Component (for shooting, and switching guns)
+        self.__current_wapon = 1
+        self.one_tracker: KeyTracker = self.add_component(KeyTracker(K_1))
+        self.two_tracker: KeyTracker = self.add_component(KeyTracker(K_2))
+        self.space_tracker: KeyTracker = self.add_component(KeyTracker(K_SPACE))
 
         # movement and related
         self.move_speed = 200
@@ -65,10 +68,18 @@ class Player(GameObject):
             new_postion = current_position + self.direction * self.move_speed * GameLoop.Delta_Time
             self.transform.move_position(new_postion)
 
+        # WEAPON PICK
+        if self.one_tracker.has_key_been_fired_at_this_frame:
+            self.__current_wapon = 1
+        elif self.two_tracker.has_key_been_fired_at_this_frame:
+            self.__current_wapon = 2
+
         # SHOOT
         if self.space_tracker.has_key_been_fired_at_this_frame:
-            self.scene.add_game_objects(RotatableProjectile())
-            # self.scene.add_game_objects(Bullet(self.transform.get_position_copy(), self.direction, self.angle))
+            if self.__current_wapon == 1:
+                self.scene.add_game_objects(Bullet(self.transform.get_position_copy(), self.direction, self.angle))
+            elif self.__current_wapon == 2:
+                self.scene.add_game_objects(RotatableProjectile())
 
     def render_gizmos(self, game_surface: Surface):
         constants.draw_special_gizmos(game_surface, self.transform.get_position_copy(), self.direction, self.angle)

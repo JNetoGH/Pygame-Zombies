@@ -45,21 +45,30 @@ class Transform(Component):
             self.__position = new_position
             return
 
-        is_projection_colling = False
         for other in self.owner.scene.game_objects:
+
             if other == self.owner:
                 continue
             if not other.__class__ in collider.collidable_classes:
                 continue
             if not other.has_collider_component:
                 continue
-            projection = collider.get_inner_rect_copy()
-            projection.centerx = new_position.x
-            projection.centery = new_position.y
-            if other.collider_component.is_there_overlap_with_rect(projection):
-                is_projection_colling = True
-        if not is_projection_colling:
-            self.__position = new_position
+
+            # DX COLLISION
+            projection_dx = collider.get_inner_rect_copy()
+            projection_dx.centerx = new_position.x
+            projection_dx.centery = self.__position.y
+            if other.collider_component.is_there_overlap_with_rect(projection_dx):
+                new_position.x = self.__position.x
+
+            # DY COLLISION
+            projection_dy = collider.get_inner_rect_copy()
+            projection_dy.centerx = self.__position.x
+            projection_dy.centery = new_position.y
+            if other.collider_component.is_there_overlap_with_rect(projection_dy):
+                new_position.y = self.__position.y
+
+        self.__position = new_position
 
     def render_gizmos(self, game_surface: Surface) -> None:
         pygame.draw.circle(game_surface, Color("white"), self.__position, constants.GIZMOS_WIDTH*2)
@@ -91,6 +100,10 @@ class Sprite(Component):
 
     def scale_image(self, scale) -> None:
         self.image = pygame.transform.scale(self.image, (self.image.get_width() * scale, self.image.get_height() * scale)).convert_alpha()
+        self.buffered_original_image = \
+            pygame.transform.scale(self.buffered_original_image,
+                                   (self.buffered_original_image.get_width() * scale,
+                                    self.buffered_original_image.get_height() * scale)).convert_alpha()
         self.scale = scale
 
     def rotate_image(self, angle) -> None:
@@ -99,7 +112,6 @@ class Sprite(Component):
             return
         self.angle = angle
         self.image = pygame.transform.rotate(self.buffered_original_image, self.angle)
-        self.scale_image(self.scale)
 
     def render_gizmos(self, game_surface: Surface) -> None:
         pygame.draw.rect(game_surface, self.color, self.image_rect, constants.GIZMOS_WIDTH)
@@ -111,7 +123,7 @@ class Sprite(Component):
 
 
 class Collider(Component):
-    def __init__(self, offset_from_game_object_x, offset_from_game_object_y, width, height, is_trigger: bool = False):
+    def __init__(self, offset_from_game_object_x, offset_from_game_object_y, width, height):
         super().__init__("Collider")
 
         # this list holds all the GameObject subclasses that the owner of this collider can colide with
