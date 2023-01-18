@@ -4,7 +4,7 @@ import pygame.mouse
 from pygame import Surface
 
 from JNeto_engine_lite import constants
-from JNeto_engine_lite.components import Transform, Component, Sprite
+from JNeto_engine_lite.components import Transform, Component, Sprite, Collider
 
 
 # =====================================================================================================================
@@ -17,6 +17,15 @@ class GameObject:
 
     def __init__(self, name):
         self.name = name
+
+        # rendering cache for performance
+        self.has_sprite_component = False
+        self.sprite_component = None
+
+        # colision cache for performance
+        self.has_collider_component = False
+        self.collider_component = None
+
         self.scene = None
         self.components: list[Component] = []
         self.transform: Transform = self.add_component(Transform())
@@ -29,10 +38,9 @@ class GameObject:
         pass
 
     def render(self, game_surface: Surface):
-        if self.has_component("Sprite"):
-            sprite_component: Sprite = self.get_component("Sprite")
-            sprite_component.image_rect = sprite_component.image.get_rect(center=self.transform.get_position_copy())
-            game_surface.blit(sprite_component.image, sprite_component.image_rect.topleft)
+        if self.has_sprite_component:
+            self.sprite_component .image_rect = self.sprite_component .image.get_rect(center=self.transform.get_position_copy())
+            game_surface.blit(self.sprite_component .image, self.sprite_component .image_rect.topleft)
 
     def render_gizmos(self, game_surface: Surface):
         pass
@@ -40,6 +48,16 @@ class GameObject:
     def add_component(self, component) -> ComponentSubclassType:
         component.owner = self
         self.components.append(component)
+
+        # sync for renderenring cache
+        if not self.has_sprite_component and isinstance(component, Sprite):
+            self.sprite_component = component
+            self.has_sprite_component = True
+        # sync for collision cache
+        if not self.has_collider_component and isinstance(component, Collider):
+            self.collider_component = component
+            self.has_collider_component = True
+
         return component
 
     def has_component(self, name) -> bool:

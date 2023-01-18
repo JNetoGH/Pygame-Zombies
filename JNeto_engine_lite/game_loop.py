@@ -40,7 +40,7 @@ class GameLoop:
             GameLoop.__CurrentScene.update()
 
             # RENDER
-            self.GameSurface.fill(constants.GREY)  # clears screen
+            # self.GameSurface.fill(constants.GREY)  # clears screen
             GameLoop.__CurrentScene.render()
             if self.show_gizmos:
                 GameLoop.__CurrentScene.render_gizmos(self.GameSurface)
