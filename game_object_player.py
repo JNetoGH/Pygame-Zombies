@@ -5,6 +5,7 @@ from JNeto_engine_lite import constants
 from JNeto_engine_lite.components import Sprite, Collider, KeyTracker
 from JNeto_engine_lite.game_loop import GameLoop
 from JNeto_engine_lite.scene_and_game_objects import GameObject
+from game_object_barrier import Barrier
 from game_object_bullet import Bullet
 
 
@@ -19,6 +20,7 @@ class Player(GameObject):
 
         # Collider Component
         self.collider: Collider = self.add_component(Collider(0, 0, 35, 35))
+        self.collider.collidable_classes.append(Barrier)
 
         # Key Tracker Component (for shooting)
         self.space_tracker = self.add_component(KeyTracker(K_SPACE))
@@ -28,7 +30,8 @@ class Player(GameObject):
         self.angle = 20
         self.angular_velocity = 150
         self.direction = Vector2()
-
+        
+    def start(self):
         # initial position
         self.transform.move_position(Vector2(200, 200))
 
@@ -63,9 +66,7 @@ class Player(GameObject):
 
         # SHOOT
         if self.space_tracker.has_key_been_fired_at_this_frame:
-            scene = GameLoop.get_current_scene()
-            scene.add_game_objects(Bullet(self.transform.get_position_copy(), self.direction, self.angle))
+            self.scene.add_game_objects(Bullet(self.transform.get_position_copy(), self.direction, self.angle))
 
     def render_gizmos(self, game_surface: Surface):
-        super().render_gizmos(game_surface)
         constants.draw_special_gizmos(game_surface, self.transform.get_position_copy(), self.direction, self.angle)

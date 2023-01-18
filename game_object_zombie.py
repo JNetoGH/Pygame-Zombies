@@ -5,6 +5,7 @@ from JNeto_engine_lite import constants
 from JNeto_engine_lite.components import Sprite, Collider
 from JNeto_engine_lite.game_loop import GameLoop
 from JNeto_engine_lite.scene_and_game_objects import GameObject
+from game_object_barrier import Barrier
 
 
 class Zombie(GameObject):
@@ -18,6 +19,7 @@ class Zombie(GameObject):
 
         # Collider Component
         self.collider: Collider = self.add_component(Collider(0, 0, 35, 35))
+        self.collider.collidable_classes.append(Barrier)
 
         # movement and related
         self.move_speed = 75
@@ -31,16 +33,16 @@ class Zombie(GameObject):
     def update(self):
 
         # DISTANCE TO PLAYER (used to get the direction to player)
-        player_position: Vector2 = GameLoop.get_current_scene().get_game_object("player").transform.get_position_copy()
+        player_position: Vector2 = self.scene.get_game_object("player").transform.get_position_copy()
         zombie_position: Vector2 = self.transform.get_position_copy()
         distance_to_player: Vector2 = player_position - self.transform.get_position_copy()
 
-        # DIRECTION TO PLAYER: normalizes the dir, avoiding div by 0 exeptions, ex: vector=(0, 0)
+        # DIRECTION TO PLAYER (normalizes the dir, avoiding div by 0 exeptions, ex: vector=(0, 0))
         self.direction_to_player: Vector2 = distance_to_player
         if numpy.linalg.norm(distance_to_player) > 0:
             self.direction_to_player = self.direction_to_player / numpy.linalg.norm(self.direction_to_player)
 
-        # MOVEMENT
+        # MOVEMENT (do not transpass barries)
         new_position: Vector2 = zombie_position + self.direction_to_player * self.move_speed * GameLoop.Delta_Time
         self.transform.move_position(new_position)
 
@@ -50,7 +52,7 @@ class Zombie(GameObject):
         dy = up_direction.y - self.direction_to_player.y
         rads = math.atan2(-dy, dx)
         rads %= 2 * math.pi
-        self.angle_to_player = math.degrees(rads) + 90
+        self.angle_to_player = (rads * 180/math.pi) + 90  # +90º because the img faces ↑, so the default → turns ↑
 
         # KEEPS THE ANGLE IN 0º <=> 360º RANGE (it works with a 7232º angle, but I prefer keeping it in this range)
         self.angle_to_player = 0 + (self.angle_to_player - 360) if self.angle_to_player > 360 else self.angle_to_player # 0 + what passed from 360
@@ -60,8 +62,7 @@ class Zombie(GameObject):
         self.sprite.rotate_image(self.angle_to_player)
 
     def render_gizmos(self, game_surface: Surface):
-        super().render_gizmos(game_surface)
         constants.draw_special_gizmos(game_surface, self.transform.get_position_copy(), self.direction_to_player, self.angle_to_player)
 
     def destroy(self):
-        GameLoop.get_current_scene().remove_game_object(self)
+        self.scene.remove_game_object(self)

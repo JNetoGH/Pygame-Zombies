@@ -43,15 +43,14 @@ class Bullet(GameObject):
             self.destroy()
 
         # COLLISION WITH ZOMBIE (destorys bullten and zombie)
-        for game_object in GameLoop.get_current_scene().game_objects:
+        for game_object in self.scene.game_objects:
             if isinstance(game_object, Zombie):
                 if self.collider.is_there_overlap_with_rect(game_object.collider.get_inner_rect_copy()):
                     game_object.destroy()
                     self.destroy()
 
     def render_gizmos(self, game_surface: Surface):
-        super().render_gizmos(game_surface)
         constants.draw_special_gizmos(game_surface, self.transform.get_position_copy(), self.direction, self.angle)
 
     def destroy(self):
-        GameLoop.get_current_scene().remove_game_object(self)
+        self.scene.remove_game_object(self)

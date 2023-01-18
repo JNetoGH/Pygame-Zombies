@@ -1,5 +1,9 @@
 import typing
+
+import pygame.mouse
 from pygame import Surface
+
+from JNeto_engine_lite import constants
 from JNeto_engine_lite.components import Transform, Component, Sprite
 
 
@@ -33,6 +37,7 @@ class GameObject:
         pass
 
     def add_component(self, component) -> ComponentSubclassType:
+        component.owner = self
         self.components.append(component)
         return component
 
@@ -70,11 +75,16 @@ class Scene:
             game_object.render(self.__game_surface)
 
     def render_gizmos(self, game_surface: Surface):
+        # GameObjects gizmos
         for game_object in self.game_objects:
             game_object.render_gizmos(game_surface)
+        # Compenents gizmos
         for game_object in self.game_objects:
             for component in game_object.components:
                 component.render_gizmos(game_surface)
+        # Mouse Gizmos
+        mouse_render = constants.MY_FONT.render(f"mouse: {pygame.mouse.get_pos()}", True, constants.CYAN_PASTEL, None)
+        game_surface.blit(mouse_render, (pygame.mouse.get_pos()[0], pygame.mouse.get_pos()[1] - 20))
 
     def add_game_objects(self, *game_objects: GameObject):
         for gm_obj in game_objects:

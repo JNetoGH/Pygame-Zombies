@@ -2,7 +2,6 @@ import pygame
 from pygame import Color, font, Vector2, Surface
 pygame.init()
 
-
 # ------------------------------------------
 
 # MY_FONT

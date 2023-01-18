@@ -10,6 +10,7 @@ class Component:
 
     def __init__(self, name: str):
         self.name = name.capitalize()
+        self.owner= None
 
     def update(self, game_object) -> None:
         pass
@@ -26,14 +27,40 @@ class Transform(Component):
     def __init__(self):
         super().__init__("Transform")
         self.__position: Vector2 = Vector2(0, 0)
-        self.angle: float = 0
 
     def get_position_copy(self) -> Vector2:
         # has to be a copy because Vector2 is a class, therefore, is passed as refenrence
         return self.__position.copy()
 
-    def move_position(self, position: Vector2) -> None:
-        self.__position = position
+    def move_position(self, new_position: Vector2) -> None:
+
+        if not self.owner.has_component("Collider"):
+            self.__position = new_position
+            return
+        if self.owner.scene is None:
+            self.__position = new_position
+            return
+
+        collider: Collider = self.owner.get_component("Collider")
+        if len(collider.collidable_classes) == 0:
+            self.__position = new_position
+            return
+
+        is_projection_colling = False
+        for other in self.owner.scene.game_objects:
+            if other == self.owner:
+                continue
+            if not other.__class__ in collider.collidable_classes:
+                continue
+            if not other.has_component("Collider"):
+                continue
+            projection = collider.get_inner_rect_copy()
+            projection.centerx = new_position.x
+            projection.centery = new_position.y
+            if other.get_component("Collider").is_there_overlap_with_rect(projection):
+                is_projection_colling = True
+        if not is_projection_colling:
+            self.__position = new_position
 
     def render_gizmos(self, game_surface: Surface) -> None:
         pygame.draw.circle(game_surface, Color("white"), self.__position, constants.GIZMOS_WIDTH*2)
@@ -80,8 +107,11 @@ class Sprite(Component):
 
 
 class Collider(Component):
-    def __init__(self, offset_from_game_object_x, offset_from_game_object_y, width, height):
+    def __init__(self, offset_from_game_object_x, offset_from_game_object_y, width, height, is_trigger: bool = False):
         super().__init__("Collider")
+
+        # this list holds all the GameObject subclasses that the owner of this collider can colide with
+        self.collidable_classes = []
 
         # rect
         self.width = width
@@ -94,6 +124,9 @@ class Collider(Component):
         self.color = constants.ORANGE_PASTEL
         self.label_text_render = constants.MY_FONT.render("collider", True, self.color, None)
 
+    def update(self, game_object) -> None:
+        self.__realign_with_game_object_owner(game_object)
+
     def get_inner_rect_copy(self) -> Rect:
         return self.__inner_rect.copy()
 
@@ -102,9 +135,6 @@ class Collider(Component):
 
     def is_there_overlap_with_rect(self, rect: pygame.Rect) -> bool:
         return self.__inner_rect.colliderect(rect)
-
-    def update(self, game_object) -> None:
-        self.__realign_with_game_object_owner(game_object)
 
     def __realign_with_game_object_owner(self, game_object) -> None:
         # updates just in case they get changed in the middle of the game
